@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Política de Privacidad — Volta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00FF87;
+    --black: #0A0A0A;
+    --white: #F8F8F6;
+    --gray: #6B6B6B;
+    --light: #EFEFED;
+    --border: #E2E2E0;
+  }
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--white); color: var(--black); font-family: 'Archivo', sans-serif; font-size: 16px; line-height: 1.7; }
+  nav { padding: 20px 48px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--white); }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark { width: 32px; height: 32px; background: var(--black); border-radius: 6px; display: flex; align-items: center; justify-content: center; }
+  .logo-mark svg { width: 18px; height: 18px; }
+  .logo-name { font-weight: 700; font-size: 18px; color: var(--black); letter-spacing: -0.5px; }
+  .nav-back { font-size: 13px; color: var(--gray); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+  .nav-back:hover { color: var(--black); }
+  .page { max-width: 720px; margin: 0 auto; padding: 64px 48px 100px; }
+  .page-header { margin-bottom: 56px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .page-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  .page-label::before { content: ''; display: block; width: 16px; height: 1px; background: var(--green); }
+  h1 { font-weight: 900; font-size: 40px; letter-spacing: -1.5px; line-height: 1.05; color: var(--black); margin-bottom: 16px; }
+  .page-meta { font-size: 13px; color: var(--gray); font-weight: 300; }
+  .section { margin-bottom: 48px; padding-bottom: 48px; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; margin-bottom: 0; }
+  h2 { font-weight: 700; font-size: 20px; letter-spacing: -0.5px; color: var(--black); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+  h2::before { content: ''; display: block; width: 4px; height: 20px; background: var(--green); border-radius: 2px; flex-shrink: 0; }
+  p { color: var(--gray); font-weight: 300; margin-bottom: 16px; font-size: 15px; }
+  p:last-child { margin-bottom: 0; }
+  p strong { color: var(--black); font-weight: 600; }
+  ul { list-style: none; margin: 16px 0; display: flex; flex-direction: column; gap: 10px; }
+  li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; color: var(--gray); font-weight: 300; line-height: 1.6; }
+  li::before { content: '—'; color: var(--green); font-weight: 700; flex-shrink: 0; }
+  li strong { color: var(--black); font-weight: 600; }
+  .highlight-box { background: var(--light); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 20px 24px; margin: 24px 0; font-size: 14px; color: var(--black); font-weight: 400; line-height: 1.6; }
+  a { color: var(--black); font-weight: 500; text-decoration: underline; text-decoration-color: var(--green); transition: opacity 0.2s; }
+  a:hover { opacity: 0.7; }
+  footer { border-top: 1px solid var(--border); padding: 28px 48px; display: flex; align-items: center; justify-content: space-between; background: var(--white); }
+  .footer-left { font-size: 12px; color: var(--gray); font-weight: 300; }
+  .footer-right a { font-size: 12px; color: var(--gray); text-decoration: none; font-weight: 400; transition: color 0.2s; }
+  .footer-right a:hover { color: var(--black); }
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .page { padding: 40px 24px 80px; }
+    h1 { font-size: 32px; }
+    footer { flex-direction: column; gap: 12px; text-align: center; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 14L9 4L15 14" stroke="#00FF87" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 10.5H12.5" stroke="#00FF87" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">Volta</span>
+  </a>
+  <a href="/" class="nav-back">← Volver al inicio</a>
+</nav>
+
+<div class="page">
+
+  <div class="page-header">
+    <div class="page-label">Legal</div>
+    <h1>Política de Privacidad</h1>
+    <p class="page-meta">Última actualización: marzo de 2026 &nbsp;·&nbsp; Versión 1.0</p>
+  </div>
+
+  <div class="section">
+    <h2>1. Quiénes somos</h2>
+    <p><strong>Volta</strong> es una plataforma de análisis de entrenamiento deportivo para runners, ciclistas y triatletas, accesible en <strong>getvolta.pro</strong>. El responsable del tratamiento de tus datos es <strong>Volta</strong>, plataforma operada desde Colombia.</p>
+    <p>Para cualquier consulta relacionada con esta política puedes escribirnos a <a href="/cdn-cgi/l/email-protection#1b686f7a696f5b7c7e6f6d74776f7a356b6974"><span class="__cf_email__" data-cfemail="9eedeaffeceadef9fbeae8f1f2eaffb0eeecf1">[email&#160;protected]</span></a>.</p>
+  </div>
+
+  <div class="section">
+    <h2>2. Qué datos recopilamos</h2>
+    <p>Recopilamos únicamente los datos necesarios para ofrecerte el servicio de análisis de entrenamiento:</p>
+    <ul>
+      <li><strong>Datos de identificación:</strong> nombre completo y dirección de correo electrónico, proporcionados al registrarte.</li>
+      <li><strong>Datos de contacto en Telegram:</strong> tu ID de usuario de Telegram, necesario para enviarte el check-in semanal y los reportes de rendimiento.</li>
+      <li><strong>Datos de actividades deportivas y salud:</strong> información de tus entrenamientos obtenida a través de la API de Garmin Connect, previa autorización expresa tuya. Esto incluye distancia, tiempo, ritmo, frecuencia cardíaca, esfuerzo y tipo de actividad.</li>
+      <li><strong>Datos de perfil deportivo:</strong> deporte principal, objetivo de entrenamiento y días disponibles por semana, proporcionados durante el onboarding.</li>
+      <li><strong>Datos conversacionales del check-in:</strong> tus respuestas al check-in semanal sobre sensaciones, molestias físicas, adherencia al plan y eventos próximos.</li>
+    </ul>
+    <div class="highlight-box">
+      Volta no recopila datos de pago ni datos de geolocalización en tiempo real. Los datos de salud que procesamos provienen exclusivamente de tu dispositivo Garmin a través de su API oficial — frecuencia cardíaca, esfuerzo y métricas de actividad — y solo son accesibles para ti.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>3. Para qué usamos tus datos</h2>
+    <p>Usamos tus datos exclusivamente para prestarte el servicio de Volta:</p>
+    <ul>
+      <li><strong>Analizar tu entrenamiento semanal</strong> y compararlo con tu histórico de las últimas 4 semanas.</li>
+      <li><strong>Enviarte el check-in semanal</strong> por Telegram cada domingo y procesar tus respuestas.</li>
+      <li><strong>Detectar señales de sobrecarga o lesión</strong> a partir de tus datos de actividad y tus respuestas al check-in.</li>
+      <li><strong>Generarte el reporte mensual</strong> con tu evolución de rendimiento, tendencias y alertas por deporte.</li>
+    </ul>
+    <p><strong>Volta no usa tus datos para publicidad, ni los vende o comparte con terceros</strong> con fines comerciales. Tus datos de Garmin solo son visibles para ti.</p>
+  </div>
+
+  <div class="section">
+    <h2>4. Base legal del tratamiento</h2>
+    <p>El tratamiento de tus datos se basa en:</p>
+    <ul>
+      <li><strong>Tu consentimiento expreso</strong> al registrarte en Volta y al autorizar el acceso a tu cuenta de Garmin Connect.</li>
+      <li><strong>La ejecución del servicio</strong> que nos solicitas — sin estos datos no podemos prestarte el análisis de entrenamiento.</li>
+    </ul>
+    <p>Puedes retirar tu consentimiento en cualquier momento escribiéndonos a <a href="/cdn-cgi/l/email-protection#f48780958680b4939180829b988095da84869b"><span class="__cf_email__" data-cfemail="54272035262014333120223b3820357a24263b">[email&#160;protected]</span></a>. La retirada del consentimiento no afecta la licitud del tratamiento previo.</p>
+  </div>
+
+  <div class="section">
+    <h2>5. Con quién compartimos tus datos</h2>
+    <p>Para prestarte el servicio, utilizamos los siguientes proveedores tecnológicos que pueden tener acceso a tus datos en calidad de encargados del tratamiento:</p>
+    <ul>
+      <li><strong>Garmin Connect API</strong> — fuente de los datos de actividades deportivas, previa autorización tuya.</li>
+      <li><strong>Telegram Bot API</strong> — canal de comunicación para el check-in semanal y los reportes.</li>
+      <li><strong>Google Sheets</strong> — almacenamiento de tu perfil y datos de entrenamiento.</li>
+      <li><strong>Google Gemini API</strong> — procesamiento de lenguaje natural para el check-in conversacional.</li>
+      <li><strong>Digital Ocean</strong> — infraestructura de servidores donde opera Volta.</li>
+      <li><strong>Zoho Mail</strong> — envío de correos electrónicos del servicio.</li>
+    </ul>
+    <p>Todos estos proveedores operan bajo sus propias políticas de privacidad y están sujetos a compromisos de confidencialidad. <strong>Ningún dato tuyo es vendido ni compartido con fines publicitarios.</strong></p>
+    <div class="highlight-box">
+      Si en el futuro cambiamos algún proveedor tecnológico, actualizaremos esta política y te notificaremos antes de que el cambio entre en vigor.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>6. Por cuánto tiempo guardamos tus datos</h2>
+    <ul>
+      <li><strong>Datos de perfil:</strong> mientras tengas una cuenta activa en Volta.</li>
+      <li><strong>Datos del check-in:</strong> hasta 12 meses desde su registro, para generar análisis de evolución.</li>
+      <li><strong>Datos de Garmin:</strong> no almacenamos un historial de actividades más allá de las últimas 8 semanas necesarias para el análisis comparativo.</li>
+    </ul>
+    <p>Al eliminar tu cuenta, todos tus datos son eliminados de nuestros sistemas en un plazo máximo de 30 días.</p>
+  </div>
+
+  <div class="section">
+    <h2>7. Tus derechos</h2>
+    <p>De acuerdo con la legislación colombiana de protección de datos (Ley 1581 de 2012) y las normativas aplicables en LATAM, tienes derecho a:</p>
+    <ul>
+      <li><strong>Acceder</strong> a los datos personales que tenemos sobre ti.</li>
+      <li><strong>Rectificar</strong> datos incorrectos o desactualizados.</li>
+      <li><strong>Eliminar</strong> tus datos personales de nuestros sistemas.</li>
+      <li><strong>Revocar</strong> el consentimiento para el tratamiento de tus datos.</li>
+      <li><strong>Portabilidad</strong> — solicitar una copia de tus datos en formato legible.</li>
+      <li><strong>Oponerte</strong> al tratamiento de tus datos en determinadas circunstancias.</li>
+    </ul>
+    <p>Para ejercer cualquiera de estos derechos escríbenos a <a href="/cdn-cgi/l/email-protection#1665627764625671736260797a627738666479"><span class="__cf_email__" data-cfemail="82f1f6e3f0f6c2e5e7f6f4edeef6e3acf2f0ed">[email&#160;protected]</span></a>. Responderemos en un plazo máximo de 15 días hábiles.</p>
+  </div>
+
+  <div class="section">
+    <h2>8. Seguridad de tus datos</h2>
+    <p>Implementamos medidas técnicas y organizativas para proteger tus datos contra acceso no autorizado, pérdida o alteración:</p>
+    <ul>
+      <li>Toda la comunicación entre tu dispositivo y nuestros servidores está cifrada mediante HTTPS/TLS, garantizando que tus datos viajan de forma segura en todo momento.</li>
+      <li>Los tokens de acceso a Garmin se almacenan de forma segura y se renuevan automáticamente.</li>
+      <li>El acceso a los datos está restringido exclusivamente al personal necesario para operar el servicio.</li>
+    </ul>
+    <p>En caso de una brecha de seguridad que afecte tus datos personales, te notificaremos en el plazo legalmente establecido.</p>
+  </div>
+
+  <div class="section">
+    <h2>9. Datos de menores</h2>
+    <p>Volta está dirigido exclusivamente a personas mayores de 18 años. No recopilamos conscientemente datos de menores de edad. Si eres padre o tutor y crees que tu hijo ha proporcionado datos personales, contáctanos en <a href="/cdn-cgi/l/email-protection#6d1e190c1f192d0a08191b0201190c431d1f02"><span class="__cf_email__" data-cfemail="8ffcfbeefdfbcfe8eafbf9e0e3fbeea1fffde0">[email&#160;protected]</span></a> y eliminaremos esos datos de inmediato.</p>
+  </div>
+
+  <div class="section">
+    <h2>10. Cambios en esta política</h2>
+    <p>Podemos actualizar esta política de privacidad ocasionalmente. Cuando lo hagamos, actualizaremos la fecha de "última actualización" al inicio del documento y, si los cambios son significativos, te notificaremos por email o por Telegram.</p>
+    <p>Te recomendamos revisar esta página periódicamente. El uso continuado del servicio después de publicar cambios implica tu aceptación de la política actualizada.</p>
+  </div>
+
+  <div class="section">
+    <h2>11. Contacto</h2>
+    <p>Para cualquier pregunta, solicitud o reclamación relacionada con el tratamiento de tus datos personales:</p>
+    <ul>
+    

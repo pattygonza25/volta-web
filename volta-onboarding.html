@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Empieza con Volta</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green: #00FF87;
+    --green-dim: rgba(0,255,135,0.1);
+    --black: #0A0A0A;
+    --white: #F8F8F6;
+    --gray: #6B6B6B;
+    --light: #EFEFED;
+    --border: #E2E2E0;
+    --error: #FF4444;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--white);
+    color: var(--black);
+    font-family: 'Archivo', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 16px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(248,248,246,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    background: var(--black);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .logo-mark svg { width: 16px; height: 16px; }
+  .logo-name {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--black);
+    letter-spacing: -0.5px;
+  }
+  .nav-step {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 400;
+  }
+  .nav-step span {
+    font-weight: 700;
+    color: var(--black);
+  }
+
+  /* PROGRESS BAR */
+  .progress-bar {
+    height: 2px;
+    background: var(--border);
+    position: sticky;
+    top: 57px;
+    z-index: 99;
+  }
+  .progress-fill {
+    height: 100%;
+    background: var(--green);
+    transition: width 0.4s ease;
+    width: 33%;
+  }
+
+  /* PAGE */
+  .page {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 56px 48px 100px;
+  }
+
+  /* STEP */
+  .step {
+    margin-bottom: 80px;
+    opacity: 0.35;
+    transition: opacity 0.3s ease;
+  }
+  .step.active { opacity: 1; }
+  .step.completed { opacity: 0.6; }
+
+  .step-header {
+    margin-bottom: 32px;
+  }
+  .step-number {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .step-number .dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--light);
+    border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--gray);
+    flex-shrink: 0;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .step.active .step-number .dot {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--black);
+  }
+  .step.completed .step-number .dot {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--white);
+  }
+
+  .step-title {
+    font-weight: 900;
+    font-size: 28px;
+    letter-spacing: -1px;
+    color: var(--black);
+    margin-bottom: 6px;
+    line-height: 1.1;
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* FORM FIELDS */
+  .field {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--black);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  input[type="text"],
+  input[type="email"] {
+    width: 100%;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 16px;
+    font-size: 15px;
+    font-family: 'Archivo', sans-serif;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.2s;
+    font-weight: 400;
+  }
+  input:focus { border-color: var(--black); }
+  input.error { border-color: var(--error); }
+  input::placeholder { color: #BBBBB9; }
+
+  /* SELECT PILLS */
+  .pill-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .pill {
+    padding: 9px 18px;
+    border-radius: 20px;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+  }
+  .pill:hover { border-color: var(--black); color: var(--black); }
+  .pill.selected {
+    background: var(--black);
+    border-color: var(--black);
+    color: var(--white);
+  }
+  .pill.selected-green {
+    background: var(--green);
+    border-color: var(--green);
+    color: var(--black);
+  }
+
+  /* FIELD HINT */
+  .field-hint {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 6px;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+
+  /* TELEGRAM HELPER */
+  .tg-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--black);
+    cursor: pointer;
+    margin-top: 8px;
+    user-select: none;
+    width: fit-content;
+  }
+  .tg-toggle:hover { opacity: 0.7; }
+  .tg-toggle .arrow {
+    font-size: 10px;
+    transition: transform 0.2s;
+  }
+  .tg-toggle.open .arrow { transform: rotate(90deg); }
+
+  .tg-helper {
+    display: none;
+    background: #EFF8FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 12px;
+  }
+  .tg-helper.visible { display: block; }
+
+  .tg-helper-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #1D4ED8;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .tg-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tg-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: #1E3A5F;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+
+  .tg-step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #1D4ED8;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .tg-step a {
+    color: #1D4ED8;
+    font-weight: 600;
+    text-decoration: underline;
+  }
+
+  .tg-step code {
+    background: rgba(29,78,216,0.1);
+    color: #1D4ED8;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  /* GARMIN SECTION */
+  .garmin-card {
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+    background: var(--white);
+  }
+
+  .garmin-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .garmin-logo {
+    width: 44px; height: 44px;
+    background: #0A3251;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .garmin-info h3 {
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--black);
+    margin-bottom: 2px;
+  }
+  .garmin-info p {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+  }
+
+  .garmin-permisos {
+    background: var(--light);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+  .garmin-permisos p {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 8px;
+  }
+  .garmin-permisos p:last-child { margin-bottom: 0; }
+  .garmin-permisos strong { color: var(--black); font-weight: 600; }
+
+  .garmin-items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 0;
+  }
+  .garmin-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+  }
+  .garmin-item::before {
+    content: '✓';
+    color: var(--green);
+    font-weight: 700;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .btn-garmin {
+    width: 100%;
+    background: #0A3251;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: not-allowed;
+    font-family: 'Archivo', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    opacity: 0.5;
+    position: relative;
+  }
+
+  .coming-soon-badge {
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    background: var(--green);
+    color: var(--black);
+    font-size: 9px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .garmin-placeholder-note {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* CONSENT */
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding: 16px;
+    background: var(--light);
+    border-radius: 8px;
+  }
+
+  .consent-row input[type="checkbox"] {
+    width: 18px; height: 18px;
+    accent-color: var(--black);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .consent-text {
+    font-size: 12px;
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+  .consent-text a {
+    color: var(--black);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--green);
+  }
+
+  /* BUTTONS */
+  .btn-next {
+    background: var(--black);
+    color: var(--white);
+    border: none;
+    padding: 15px 32px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Archivo', sans-serif;
+    letter-spacing: -0.2px;
+    transition: background 0.2s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-next:hover { background: #1a1a1a; transform: translateY(-1px); }
+  .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  /* ERROR MSG */
+  .error-msg {
+    font-size: 12px;
+    color: var(--error);
+    margin-top: 6px;
+    font-weight: 500;
+    display: none;
+  }
+  .error-msg.visible { display: block; }
+
+  /* SUCCESS */
+  .success-section {
+    display: none;
+    text-align: center;
+    padding: 80px 0;
+  }
+  .success-section.visible { display: block; }
+
+  .success-icon {
+    width: 72px; height: 72px;
+    background: var(--green);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 32px;
+    margin: 0 auto 28px;
+  }
+
+  .success-title {
+    font-weight: 900;
+    font-size: 36px;
+    letter-spacing: -1.5px;
+    color: var(--black);
+    margin-bottom: 16px;
+    line-height: 1.05;
+  }
+
+  .success-desc {
+    font-size: 16px;
+    color: var(--gray);
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 400px;
+    margin: 0 auto 32px;
+  }
+  .success-desc strong { color: var(--black); font-weight: 600; }
+
+  .success-next-steps {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 24px 28px;
+    text-align: left;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .success-next-steps h4 {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+  .success-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--black);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+  .success-step:last-child { margin-bottom: 0; }
+  .success-step-num {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--black);
+    color: var(--white);
+    font-size: 10px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* DIVIDER */
+  .step-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 0 80px;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-left { font-size: 12px; color: var(--gray); font-weight: 300; }
+  .footer-links { display: flex; gap: 20px; }
+  .footer-links a { font-size: 12px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--black); }
+
+  @media (max-width: 640px) {
+    nav { padding: 14px 20px; }
+    .page { padding: 40px 24px 80px; }
+    .step-title { font-size: 24px; }
+    footer { flex-direction: column; gap: 12px; padding: 20px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 14L9 4L15 14" stroke="#00FF87" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M5.5 10.5H12.5" stroke="#00FF87" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <span class="logo-name">Volta</span>
+  </a>
+  <div class="nav-step">Paso <span id="navStep">1</span> de 3</div>
+</nav>
+
+<!-- PROGRESS -->
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- MAIN FORM -->
+<div class="page" id="mainForm">
+
+  <!-- ── PASO 1: TU PERFIL ── -->
+  <div class="step active" id="step1">
+    <div class="step-header">
+      <div class="step-number">
+        <div class="dot">1</div>
+        Tu perfil
+      </div>
+      <h2 class="step-title">Cuéntanos<br>sobre ti.</h2>
+      <p class="step-desc">Para que Volta entienda tu entrenamiento desde el primer día.</p>
+    </div>
+
+    <div class="field">
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" placeholder="Tu nombre" autocomplete="name">
+      <div class="error-msg" id="errorNombre">Por favor ingresa tu nombre.</div>
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" placeholder="tu@email.com" autocomplete="email">
+      <div class="error-msg" id="errorEmail">Por favor ingresa un email válido.</div>
+    </div>
+
+    <div class="field">
+      <label>Deporte principal</label>
+      <div class="pill-group" id="deporteGroup">
+        <div class="pill" data-value="running" onclick="selectPill(this, 'deporteGroup')">🏃 Running</div>
+        <div class="pill" data-value="ciclismo" onclick="selectPill(this, 'deporteGroup')">🚴 Ciclismo</div>
+        <div class="pill" data-value="triatlon" onclick="selectPill(this, 'deporteGroup')">🏊 Triatlón</div>
+        <div class="pill" data-value="natacion" onclick="selectPill(this, 'deporteGroup')">🏊 Natación</div>
+      </div>
+      <div class="error-msg" id="errorDeporte">Selecciona tu deporte principal.</div>
+    </div>
+
+    <div class="field">
+      <label>Tu objetivo principal</label>
+      <div class="pill-group" id="objetivoGroup">
+        <div class="pill" data-value="mejorar_tiempos" onclick="selectPill(this, 'objetivoGroup')">Mejorar mis tiempos</div>
+        <div class="pill" data-value="completar_distancia" onclick="selectPill(this, 'objetivoGroup')">Completar una distancia larga</div>
+        <div class="pill" data-value="consistencia" onclick="selectPill(this, 'objetivoGroup')">Entrenar más consistente</div>
+        <div class="pill" data-value="recuperacion" onclick="selectPill(this, 'objetivoGroup')">Volver tras una lesión</div>
+      </div>
+      <div class="error-msg" id="errorObjetivo">Selecciona tu objetivo.</div>
+    </div>
+
+    <div class="field">
+      <label>Días disponibles por semana</label>
+      <div class="pill-group" id="diasGroup">
+        <div class="pill" data-value="3" onclick="selectPill(this, 'diasGroup')">3 días</div>
+        <div class="pill" data-value="4" onclick="selectPill(this, 'diasGroup')">4 días</div>
+        <div class="pill" data-value="5" onclick="selectPill(this, 'diasGroup')">5 días</div>
+        <div class="pill" data-value="6+" onclick="selectPill(this, 'diasGroup')">6+ días</div>
+      </div>
+      <div class="error-msg" id="errorDias">Selecciona los días disponibles.</div>
+    </div>
+
+    <div style="margin-top: 32px;">
+      <button class="btn-next" onclick="goToStep2()">Continuar →</button>
+    </div>
+  </div>
+
+  <div class="step-divider"></div>
+
+  <!-- ── PASO 2: TELEGRAM ── -->
+  <div class="step" id="step2">
+    <div class="step-header">
+      <div class="step-number">
+        <div class="dot">2</div>
+        Tu Telegram
+      </div>
+      <h2 class="step-title">Conecta<br>Telegram.</h2>
+      <p class="step-desc">Volta te enviará el check-in semanal y tus reportes directamente por Telegram. Sin apps nuevas.</p>
+    </div>
+
+    <div class="field">
+      <label for="telegramId">Tu ID de Telegram</label>
+      <input type="text" id="telegramId" placeholder="Ej: 123456789" inputmode="numeric">
+      <div class="field-hint">Solo números. No es tu nombre de usuario (@usuario).</div>
+      <div class="error-msg" id="errorTelegram">El ID de Telegram solo contiene números.</div>
+    </div>
+
+    <div class="tg-toggle" id="tgToggle" onclick="toggleTgHelper()">
+      <span class="arrow">▶</span>
+      ¿Cómo obtengo mi ID de Telegram?
+    </div>
+
+    <div class="tg-helper" id="tgHelper">
+      <div class="tg-helper-title">Obtén tu ID en 4 pasos</div>
+      <div class="tg-steps">
+        <div class="tg-step">
+          <div class="tg-step-num">1</div>
+          <div>Descarga <a href="https://telegram.org" target="_blank">Telegram</a> si aún no lo tienes.</div>
+        </div>
+        <div class="tg-step">
+          <div class="tg-step-num">2</div>
+          <div>Busca el bot <a href="https://t.me/userinfobot" target="_blank">@userinfobot</a> en Telegram.</div>
+        </div>
+        <div class="tg-step">
+          <div class="tg-step-num">3</div>
+          <div>Presiona <strong>Iniciar</strong> o escribe cualquier mensaje.</div>
+        </div>
+        <div class="tg-step">
+          <div class="tg-step-num">4</div>
+          <div>Copia el número que aparece junto a <code>Id:</code> y pégalo aquí.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="consent-row" style="margin-top: 24px;">
+      <input type="checkbox" id="consentTelegram">
+      <div class="consent-text">
+        Acepto que Volta me envíe el check-in semanal y reportes de entrenamiento por Telegram. Puedo cancelar en cualquier momento escribiendo al bot.
+      </div>
+    </div>
+    <div class="error-msg" id="errorConsentTelegram">Debes aceptar para continuar.</div>
+
+    <button class="btn-next" onclick="goToStep3()">Continuar →</button>
+  </div>
+
+  <div class="step-divider"></div>
+
+  <!-- ── PASO 3: GARMIN ── -->
+  <div class="step" id="step3">
+    <div class="step-header">
+      <div class="step-number">
+        <div class="dot">3</div>
+        Tus datos
+      </div>
+      <h2 class="step-title">Conecta<br>Garmin.</h2>
+      <p class="step-desc">Volta necesita acceso a tus actividades para analizar tu entrenamiento. Solo tú ves tus datos.</p>
+    </div>
+
+    <div class="garmin-card">
+      <div class="garmin-header">
+        <div class="garmin-logo">⌚</div>
+        <div class="garmin-info">
+          <h3>Garmin Connect</h3>
+          <p>Acceso solo lectura a tus actividades</p>
+        </div>
+      </div>
+
+      <div class="garmin-permisos">
+        <p><strong>Volta solo accederá a:</strong></p>
+        <div class="garmin-items">
+          <div class="garmin-item">Actividades deportivas (distancia, tiempo, ritmo)</div>
+          <div class="garmin-item">Frecuencia cardíaca durante el entrenamiento</div>
+          <div class="garmin-item">Tipo de actividad y fecha</div>
+        </div>
+        <p style="margin-top: 10px;">Volta <strong>no puede</strong> modificar tus datos, ver tu ubicación en tiempo real, ni acceder a información personal de tu cuenta Garmin.</p>
+      </div>
+
+      <button class="btn-garmin" disabled>
+        <span>Conectar con Garmin</span>
+        <div class="coming-soon-badge">Próximamente</div>
+      </button>
+      <p class="garmin-placeholder-note">
+        La integración con Garmin estará disponible muy pronto.<br>
+        Puedes completar tu registro ahora — te avisamos cuando esté lista.
+      </p>
+    </div>
+
+    <div class="consent-row" style="margin-top: 24px;">
+      <input type="checkbox" id="consentPrivacy">
+      <div class="consent-text">
+        He leído y acepto la <a href="/privacy" target="_blank">Política de Privacidad</a> de Volta. Entiendo cómo se usan mis datos y que puedo solicitar su eliminación en cualquier momento.
+      </div>
+    </div>
+    <div class="error-msg" id="errorConsentPrivacy">Debes aceptar la política de privacidad.</div>
+
+    <button class="btn-next" onclick="submitForm()" style="margin-top: 8px;">
+      Completar registro →
+    </button>
+  </div>
+
+</div>
+
+<!-- SUCCESS -->
+<div class="page" id="successSection" style="display:none;">
+  <div class="success-section visible">
+    <div class="success-icon">✓</div>
+    <h2 class="success-title">¡Estás dentro,<br><span id="successNombre">atleta</span>!</h2>
+    <p class="success-desc">
+      Revisaremos tu perfil y en menos de <strong>24 horas</strong> recibirás un correo de <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="52212633202612353726243d3e26337c22203d">[email&#160;protected]</a></strong> con todo para empezar.
+    </p>
+    <div class="success-next-steps">
+      <h4>Qué sigue</h4>
+      <div class="success-step">
+        <div class="success-step-num">1</div>
+        Revisa tu email — te escribiremos desde <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7a090e1b080e3a1d1f0e0c15160e1b540a0815">[email&#160;protected]</a>
+      </div>
+      <div class="success-step">
+        <div class="success-step-num">2</div>
+        Busca <strong>@volta_pro_bot</strong> en Telegram y escribe "Hola" para activar tu check-in
+      </div>
+      <div class="success-step">
+        <div class="success-step-num">3</div>
+        El próximo domingo recibes tu primer check-in — así empieza tu análisis
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-left">© 2026 Volta · getvolta.pro</div>
+  <div class="footer-links">
+    <a href="/privacy">Privacidad</a>
+    <a href="/cdn-cgi/l/email-protection#7d0e091c0f093d1a18090b1211091c530d0f12">Contacto</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Estado
+  const data = {
+    nombre: '', email: '', deporte: '', objetivo: '', dias: '',
+    telegramId: '', consentTelegram: false, consentPrivacy: false
+  };
+  let currentStep = 1;
+
+  // Progress
+  function updateProgress(step) {
+    const pct = { 1: 33, 2: 66, 3: 100 };
+    document.getElementById('progressFill').style.width = pct[step] + '%';
+    document.getElementById('navStep').textContent = step;
+  }
+
+  // Pills
+  function selectPill(el, groupId) {
+    document.querySelectorAll(`#${groupId} .pill`).forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Toggle Telegram helper
+  function toggleTgHelper() {
+    const helper = document.getElementById('tgHelper');
+    const toggle = document.getElementById('tgToggle');
+    const isVisible = helper.classList.contains('visible');
+    helper.classList.toggle('visible', !isVisible);
+    toggle.classList.toggle('open', !isVisible);
+  }
+
+  // Validación paso 1
+  function goToStep2() {
+    let valid = true;
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const deporte = document.querySelector('#deporteGroup .selected');
+    const objetivo = document.querySelector('#objetivoGroup .selected');
+    const dias = document.querySelector('#diasGroup .selected');
+
+    document.getElementById('errorNombre').classList.toggle('visible', !nombre);
+    document.getElementById('nombre').classList.toggle('error', !nombre);
+    if (!nombre) valid = false;
+
+    const emailValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    document.getElementById('errorEmail').classList.toggle('visible', !emailValid);
+    document.getElementById('email').classList.toggle('error', !emailValid);
+    if (!emailValid) valid = false;
+
+    document.getElementById('errorDeporte').classList.toggle('visible', !deporte);
+    if (!deporte) valid = false;
+
+    document.getElementById('errorObjetivo').classList.toggle('visible', !objetivo);
+    if (!objetivo) valid = false;
+
+    document.getElementById('errorDias').classList.toggle('visible', !dias);
+    if (!dias) valid = false;
+
+    if (!valid) return;
+
+    data.nombre = nombre;
+    data.email = email;
+    data.deporte = deporte.dataset.value;
+    data.objetivo = objetivo.dataset.value;
+    data.dias = dias.dataset.value;
+
+    document.getElementById('step1').classList.remove('active');
+    document.getElementById('step1').classList.add('completed');
+    document.getElementById('step2').classList.add('active');
+    currentStep = 2;
+    updateProgress(2);
+
+    document.getElementById('step2').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Validación paso 2
+  function goToStep3() {
+    let valid = true;
+
+    const telegramId = document.getElementById('telegramId').value.trim();
+    const consent = document.getElementById('consentTelegram').checked;
+
+    const tgValid = telegramId && /^\d+$/.test(telegramId);
+    document.getElementById('errorTelegram').classList.toggle('visible', !tgValid);
+    document.getElementById('telegramId').classList.toggle('error', !tgValid);
+    if (!tgValid) valid = false;
+
+    document.getElementById('errorConsentTelegram').classList.toggle('visible', !consent);
+    if (!consent) valid = false;
+
+    if (!valid) return;
+
+    data.telegramId = telegramId;
+    data.consentTelegram = true;
+
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('step2').classList.add('completed');
+    document.getElementById('step3').classList.add('active');
+    currentStep = 3;
+    updateProgress(3);
+
+    document.getElementById('step3').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // Submit final
+  async function submitForm() {
+    const consent = document.getElementById('consentPrivacy').checked;
+    document.getElementById('errorConsentPrivacy').classList.toggle('visible', !consent);
+    if (!consent) return;
+
+    data.consentPrivacy = true;
+
+    // Enviar al webhook de n8n
+    try {
+      await fetch('https://n8n.patriciagonzalez.lat/webhook/volta-registro', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        mode: 'no-cors',
+        body: JSON.stringify(data)
+      });
+    } catch(e) {
+      console.log('Webhook error:', e);
+    }
+
+  
