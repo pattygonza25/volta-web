@@ -865,11 +865,11 @@
 
   // CTA
   function handleCTA() {
-    const email = document.getElementById('emailInput').value;
+    const email = document.getElementById('emailInput').value.trim();
     if (!email || !email.includes('@')) {
       document.getElementById('emailInput').style.borderColor = '#ff4444';
       setTimeout(() => document.getElementById('emailInput').style.borderColor = '', 2000);
       return;
     }
-    window.location.href = `mailto:patricia@getvolta.pro?subject=Acceso anticipado Volta&body=Hola, quiero acceso anticipado a Volta. Mi email es: ${encodeURIComponent(email)}`;
+    window.location.href = '/start?email=' + encodeURIComponent(email);
   }
