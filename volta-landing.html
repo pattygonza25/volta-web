@@ -833,11 +833,8 @@
     <p class="cta-sub">
       Acceso gratuito durante el período de prueba. Solo necesitas tu dispositivo o app de entrenamiento y Telegram.
     </p>
-    <div class="cta-form">
-      <input type="email" class="cta-input" placeholder="tu@email.com" id="emailInput">
-      <button class="cta-btn" onclick="handleCTA()">Quiero acceso →</button>
-    </div>
-    <p class="cta-disclaimer">Sin tarjeta de crédito. Te contactamos en menos de 24 horas.</p>
+    <a href="/start" class="cta-btn" style="display:inline-block;text-decoration:none;">Quiero acceso →</a>
+    <p class="cta-disclaimer" style="margin-top:16px;">Sin tarjeta de crédito. Te contactamos en menos de 24 horas.</p>
   </div>
 </section>
 
@@ -862,14 +859,3 @@
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
-
-  // CTA
-  function handleCTA() {
-    const email = document.getElementById('emailInput').value.trim();
-    if (!email || !email.includes('@')) {
-      document.getElementById('emailInput').style.borderColor = '#ff4444';
-      setTimeout(() => document.getElementById('emailInput').style.borderColor = '', 2000);
-      return;
-    }
-    window.location.href = '/start?email=' + encodeURIComponent(email);
-  }
